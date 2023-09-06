@@ -1,9 +1,17 @@
 {
   "name": "@vueform/nuxt",
   "version": "1.0.0",
+  "private": false,
   "description": "Nuxt module for Vueform SDK.",
-  "repository": "vueform/nuxt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vueform/nuxt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vueform/nuxt/issues"
+  },
   "license": "MIT",
+  "author": "Adam Berecz <adam@vueform.com>",
   "type": "module",
   "exports": {
     ".": {
