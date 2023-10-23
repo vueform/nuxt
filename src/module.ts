@@ -7,13 +7,14 @@ import {
   createResolver,
 } from '@nuxt/kit'
 
+// Module options TypeScript interface definition
 export interface ModuleOptions {
   configPath?: string
 }
 
 const module: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'VueformSDK',
+    name: 'Vueform',
     configKey: 'vueform',
     compatibility: {
       nuxt: '^3.0.0',
@@ -24,6 +25,10 @@ const module: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>({
   },
   async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
+
+    nuxt.hook('prepare:types', (opts) => {
+      opts.references.push({ types: '@vueform/vueform' })
+    })
 
     nuxt.options.build.transpile.push('@vueform/vueform')
 
@@ -59,16 +64,15 @@ const module: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>({
 
         export default defineNuxtPlugin(async (nuxtApp) => {
           if (process.client) {
-            const Vueform = (await import('@vueform/vueform/plugin.js')).default
+            const vueform = (await import('@vueform/vueform')).vueform
             const vueformConfig = (await import('${configPath}')).default
             
-            nuxtApp.vueApp.use(Vueform, vueformConfig)
+            nuxtApp.vueApp.use(vueform, vueformConfig)
           }
-
         })
         `
       },
-      filename: 'vueformSDKPlugin.mjs',
+      filename: 'vueformPlugin.mjs',
     })
   },
 })
