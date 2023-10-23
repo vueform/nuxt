@@ -1,5 +1,5 @@
 import { existsSync } from 'fs'
-import { NuxtModule } from '@nuxt/schema'
+import type { NuxtModule } from '@nuxt/schema'
 import { resolve } from 'pathe'
 import {
   defineNuxtModule,
